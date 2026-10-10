@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useState } from 'react'
 import {
   ArrowRight,
@@ -61,10 +62,15 @@ export default function Page() {
                 <h1 className="font-serif text-[22px] leading-tight">La Encina</h1>
               </div>
             </div>
-            <button aria-label="Ver notificaciones" onClick={() => showNotice('No tienes notificaciones nuevas')} className="relative rounded-full p-2 transition hover:bg-white/10">
-              <Bell className="size-5" />
-              <span className="absolute right-1.5 top-1.5 size-2 rounded-full bg-[#f3c78c] ring-2 ring-[#174c4e]" />
-            </button>
+            <div className="flex items-center gap-1">
+              <Link href="/sign-up" className="rounded-full bg-[#f3c78c] px-3 py-2 text-[10px] font-bold text-[#174c4e] transition hover:bg-[#f8d9aa]">
+                Acceso AMPA
+              </Link>
+              <button aria-label="Ver notificaciones" onClick={() => showNotice('No tienes notificaciones nuevas')} className="relative rounded-full p-2 transition hover:bg-white/10">
+                <Bell className="size-5" />
+                <span className="absolute right-1.5 top-1.5 size-2 rounded-full bg-[#f3c78c] ring-2 ring-[#174c4e]" />
+              </button>
+            </div>
           </div>
           <div className="mt-8">
             <p className="text-sm text-[#b8d9ce]">Buenos días, familias</p>
