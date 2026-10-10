@@ -10,6 +10,7 @@ export default function SignUpPage() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -18,6 +19,12 @@ export default function SignUpPage() {
     event.preventDefault()
     setError('')
     setSuccess('')
+
+    if (!/(?=.*[A-Za-z])(?=.*\d).{8,}/.test(password)) {
+      setError('La contraseña debe tener al menos 8 caracteres, una letra y un número.')
+      return
+    }
+
     setIsSubmitting(true)
 
     try {
@@ -55,7 +62,7 @@ export default function SignUpPage() {
         <p className="mt-2 text-sm leading-relaxed text-[#728187]">Crea la cuenta administradora para acceder desde tu portátil. Usa el correo autorizado del AMPA.</p>
         <label className="mt-6 block text-sm font-semibold text-[#526268]">Nombre<input required value={name} onChange={(event) => setName(event.target.value)} className="mt-2 w-full rounded-xl border border-[#d5e2dc] px-3 py-3 outline-none focus:border-[#4c8473]" /></label>
         <label className="mt-4 block text-sm font-semibold text-[#526268]">Correo electrónico<input required type="email" value={email} onChange={(event) => setEmail(event.target.value)} className="mt-2 w-full rounded-xl border border-[#d5e2dc] px-3 py-3 outline-none focus:border-[#4c8473]" /></label>
-        <label className="mt-4 block text-sm font-semibold text-[#526268]">Nueva contraseña<input required minLength={8} type="password" value={password} onChange={(event) => setPassword(event.target.value)} className="mt-2 w-full rounded-xl border border-[#d5e2dc] px-3 py-3 outline-none focus:border-[#4c8473]" /><span className="mt-2 block text-xs font-normal text-[#849297]">Mínimo 8 caracteres.</span></label>
+        <label className="mt-4 block text-sm font-semibold text-[#526268]">Nueva contraseña<div className="relative mt-2"><input required minLength={8} type={showPassword ? 'text' : 'password'} value={password} onChange={(event) => setPassword(event.target.value)} aria-describedby="password-help" className="w-full rounded-xl border border-[#d5e2dc] px-3 py-3 pr-24 outline-none focus:border-[#4c8473]" /><button type="button" onClick={() => setShowPassword((visible) => !visible)} className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-bold text-[#23645f]" aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}>{showPassword ? 'Ocultar' : 'Ver contraseña'}</button></div><span id="password-help" className="mt-2 block text-xs font-normal text-[#849297]">Mínimo 8 caracteres, una letra y un número.</span></label>
         {error && <p role="alert" className="mt-3 text-sm text-[#b65c45]">{error}</p>}
         {success && <p role="status" className="mt-3 text-sm text-[#23645f]">{success}</p>}
         <button type="submit" disabled={isSubmitting} className="mt-6 w-full rounded-xl bg-[#174c4e] py-3 font-bold text-white disabled:cursor-not-allowed disabled:opacity-60">{isSubmitting ? 'Creando cuenta…' : 'Crear cuenta y entrar'}</button>
