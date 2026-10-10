@@ -12,19 +12,39 @@ export default function SignUpPage() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   async function submit(event: FormEvent) {
     event.preventDefault()
     setError('')
     setSuccess('')
-    const result = await authClient.signUp.email({ name, email, password })
-    if (result.error) {
-      setError('No se pudo crear la cuenta. Comprueba los datos e inténtalo de nuevo.')
-      return
+    setIsSubmitting(true)
+
+    try {
+      const result = await authClient.signUp.email({
+        name: name.trim(),
+        email: email.trim().toLowerCase(),
+        password,
+      })
+
+      if (result.error) {
+        const errorCode = result.error.code ?? ''
+        setError(
+          errorCode === 'USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL'
+            ? 'Esta cuenta ya existe. Usa «Volver al acceso» para entrar con tu contraseña.'
+            : 'No se pudo crear la cuenta. Comprueba que la contraseña tenga al menos 8 caracteres y vuelve a intentarlo.',
+        )
+        return
+      }
+
+      setSuccess('Cuenta creada. Entrando al panel…')
+      router.push('/admin')
+      router.refresh()
+    } catch {
+      setError('No se ha podido conectar con la base de datos. Vuelve a intentarlo.')
+    } finally {
+      setIsSubmitting(false)
     }
-    setSuccess('Cuenta creada. Entrando al panel…')
-    router.push('/admin')
-    router.refresh()
   }
 
   return (
@@ -38,7 +58,7 @@ export default function SignUpPage() {
         <label className="mt-4 block text-sm font-semibold text-[#526268]">Nueva contraseña<input required minLength={8} type="password" value={password} onChange={(event) => setPassword(event.target.value)} className="mt-2 w-full rounded-xl border border-[#d5e2dc] px-3 py-3 outline-none focus:border-[#4c8473]" /><span className="mt-2 block text-xs font-normal text-[#849297]">Mínimo 8 caracteres.</span></label>
         {error && <p role="alert" className="mt-3 text-sm text-[#b65c45]">{error}</p>}
         {success && <p role="status" className="mt-3 text-sm text-[#23645f]">{success}</p>}
-        <button className="mt-6 w-full rounded-xl bg-[#174c4e] py-3 font-bold text-white">Crear cuenta y entrar</button>
+        <button type="submit" disabled={isSubmitting} className="mt-6 w-full rounded-xl bg-[#174c4e] py-3 font-bold text-white disabled:cursor-not-allowed disabled:opacity-60">{isSubmitting ? 'Creando cuenta…' : 'Crear cuenta y entrar'}</button>
         <p className="mt-5 text-center text-sm text-[#728187]">¿Ya tienes contraseña? <Link href="/sign-in" className="font-bold text-[#23645f] underline underline-offset-4">Volver al acceso</Link></p>
       </form>
     </main>
