@@ -36,10 +36,16 @@ export default function SignUpPage() {
 
       if (result.error) {
         const errorCode = result.error.code ?? ''
+        const errorMessage = result.error.message ?? ''
+        const accountAlreadyExists =
+          errorCode.includes('USER_ALREADY_EXISTS') || errorMessage.toLowerCase().includes('already exists')
+
         setError(
-          errorCode === 'USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL'
-            ? 'Esta cuenta ya existe. Usa «Volver al acceso» para entrar con tu contraseña.'
-            : 'No se pudo crear la cuenta. Comprueba que la contraseña tenga al menos 8 caracteres y vuelve a intentarlo.',
+          accountAlreadyExists
+            ? 'Esta cuenta ya está creada. Pulsa «Volver al acceso» e inicia sesión con tu contraseña.'
+            : errorCode === 'PASSWORD_TOO_SHORT'
+              ? 'La contraseña debe tener al menos 8 caracteres.'
+              : 'No se pudo crear la cuenta. Usa una contraseña con 8 caracteres, una letra y un número, y vuelve a intentarlo.',
         )
         return
       }
