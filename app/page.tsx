@@ -54,12 +54,12 @@ export default function Page() {
         <header className="bg-[#174c4e] px-6 pb-7 pt-7 text-white">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="flex size-11 items-center justify-center rounded-[17px] bg-[#f3c78c] text-[#174c4e] shadow-sm">
-                <GraduationCap className="size-6" strokeWidth={2.3} />
+              <div className="flex size-14 items-center justify-center overflow-hidden rounded-[17px] bg-white shadow-sm">
+                <img src="/logo-reino-murcia.png" alt="CEIP Colegio Bilingüe Reino de Murcia" className="size-full object-contain" />
               </div>
               <div>
                 <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-[#b8d9ce]">AMPA</p>
-                <h1 className="font-serif text-[22px] leading-tight">La Encina</h1>
+                <h1 className="font-serif text-[22px] leading-tight">CEIP Reino de Murcia</h1>
               </div>
             </div>
             <div className="flex items-center gap-1">

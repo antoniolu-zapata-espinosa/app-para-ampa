@@ -63,7 +63,7 @@ export default function SignUpPage() {
   return (
     <main className="flex min-h-screen items-center justify-center bg-[#f7f7f4] px-5 py-8">
       <form onSubmit={submit} className="w-full max-w-md rounded-3xl bg-white p-7 shadow-[0_12px_35px_rgba(33,61,59,0.1)]">
-        <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#4c8473]">AMPA La Encina</p>
+        <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#4c8473]">AMPA CEIP Reino de Murcia</p>
         <h1 className="mt-2 font-serif text-3xl font-semibold text-[#174c4e]">Crear contraseña</h1>
         <p className="mt-2 text-sm leading-relaxed text-[#728187]">Crea la cuenta administradora para acceder desde tu portátil. Usa el correo autorizado del AMPA.</p>
         <label className="mt-6 block text-sm font-semibold text-[#526268]">Nombre<input required value={name} onChange={(event) => setName(event.target.value)} className="mt-2 w-full rounded-xl border border-[#d5e2dc] px-3 py-3 outline-none focus:border-[#4c8473]" /></label>
