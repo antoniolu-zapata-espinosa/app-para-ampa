@@ -39,6 +39,8 @@ const news = [
 export default function Page() {
   const [active, setActive] = useState('inicio')
   const [notice, setNotice] = useState('')
+  const [selectedClass, setSelectedClass] = useState('3º A · Primaria')
+  const classes = ['Infantil 3 años', 'Infantil 4 años', 'Infantil 5 años', '1º A · Primaria', '2º A · Primaria', '3º A · Primaria', '4º A · Primaria', '5º A · Primaria', '6º A · Primaria']
 
   const showNotice = (message: string) => {
     setNotice(message)
@@ -71,7 +73,22 @@ export default function Page() {
         </header>
 
         <div className="px-5 pb-28 pt-5">
-          <section aria-label="Accesos rápidos">
+          <section className="rounded-[22px] border border-[#d9e7df] bg-[#eaf4ef] p-4 shadow-[0_5px_18px_rgba(33,61,59,0.04)]" aria-labelledby="class-selector-title">
+            <div className="flex items-center justify-between gap-3">
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#4c8473]">Tu familia</p>
+                <h2 id="class-selector-title" className="mt-1 font-serif text-[19px] font-semibold text-[#245a56]">Contenido de mi clase</h2>
+              </div>
+              <GraduationCap className="size-6 text-[#4c8473]" />
+            </div>
+            <label htmlFor="class-select" className="sr-only">Selecciona la clase</label>
+            <select id="class-select" value={selectedClass} onChange={(event) => { setSelectedClass(event.target.value); showNotice(`Agenda actualizada: ${event.target.value}`) }} className="mt-3 w-full appearance-none rounded-[14px] border border-[#c5ddd1] bg-white px-3.5 py-3 text-sm font-semibold text-[#315d59] outline-none transition focus:border-[#4c8473] focus:ring-2 focus:ring-[#b9d9ca]">
+              {classes.map((className) => <option key={className}>{className}</option>)}
+            </select>
+            <p className="mt-2 text-[11px] text-[#6d8981]">Verás aquí la agenda, avisos y menú de este curso.</p>
+          </section>
+
+          <section className="mt-8" aria-label="Accesos rápidos">
             <div className="mb-3 flex items-center justify-between">
               <h2 className="font-serif text-[20px] font-semibold">Explora</h2>
               <span className="text-xs font-medium text-[#728187]">Accesos rápidos</span>
@@ -90,7 +107,7 @@ export default function Page() {
 
           <section className="mt-8" aria-labelledby="next-event">
             <div className="mb-3 flex items-center justify-between">
-              <h2 id="next-event" className="font-serif text-[20px] font-semibold">Próximamente</h2>
+              <h2 id="next-event" className="font-serif text-[20px] font-semibold">Próximamente · {selectedClass}</h2>
               <button onClick={() => { setActive('agenda'); showNotice('Abriendo agenda completa') }} className="flex items-center gap-1 text-xs font-semibold text-[#23645f]">Ver agenda <ArrowRight className="size-3.5" /></button>
             </div>
             <div className="flex gap-3 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
