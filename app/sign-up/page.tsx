@@ -8,7 +8,7 @@ import { authClient } from '@/lib/auth-client'
 export default function SignUpPage() {
   const router = useRouter()
   const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
+  const [email, setEmail] = useState('alzapata1980@gmail.com')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
