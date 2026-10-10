@@ -3,7 +3,7 @@ import type { Metadata, Viewport } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'AMPA La Encina',
+  title: 'AMPA CEIP Reino de Murcia',
   description: 'La app de nuestra comunidad escolar: noticias, agenda, colegio y mucho más.',
   generator: 'v0.app',
   icons: {

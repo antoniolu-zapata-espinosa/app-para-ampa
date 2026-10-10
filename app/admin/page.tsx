@@ -11,7 +11,7 @@ export default async function AdminPage() {
   return (
     <main className="min-h-screen bg-[#f7f7f4] px-6 py-10 text-[#263238]">
       <div className="mx-auto max-w-5xl">
-        <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#4c8473]">AMPA La Encina</p>
+        <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#4c8473]">AMPA CEIP Reino de Murcia</p>
         <div className="mt-2 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
           <div><h1 className="font-serif text-4xl font-semibold text-[#174c4e]">Panel de administración</h1><p className="mt-2 text-sm text-[#728187]">Añade y organiza la información que verá cada familia.</p></div>
           <span className="rounded-full bg-[#d9eee4] px-3 py-2 text-xs font-semibold text-[#23645f]">Administrador autorizado</span>

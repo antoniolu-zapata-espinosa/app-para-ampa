@@ -59,7 +59,7 @@ export default function Page() {
               </div>
               <div>
                 <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-[#b8d9ce]">AMPA</p>
-                <h1 className="font-serif text-[22px] leading-tight">La Encina</h1>
+                <h1 className="font-serif text-[22px] leading-tight">CEIP Reino de Murcia</h1>
               </div>
             </div>
             <div className="flex items-center gap-1">
