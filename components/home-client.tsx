@@ -53,7 +53,7 @@ function getGreeting() {
   return 'Buenas noches'
 }
 
-export default function HomeClient({ parentName, children }: { parentName: string; children: FamilyChild[] }) {
+export default function HomeClient({ children }: { children: FamilyChild[] }) {
   const [active, setActive] = useState('inicio')
   const [notice, setNotice] = useState('')
   const [selectedChildId, setSelectedChildId] = useState(children[0]?.id ?? '')
@@ -91,7 +91,7 @@ export default function HomeClient({ parentName, children }: { parentName: strin
             </div>
           </div>
           <div className="mt-8">
-            <p className="text-sm text-[#b8d9ce]">{getGreeting()}, {parentName}</p>
+            <p className="text-sm text-[#b8d9ce]">{getGreeting()}</p>
             <h2 className="mt-1 font-serif text-[30px] leading-tight tracking-[-0.02em]">Todo lo que pasa<br />en nuestro cole.</h2>
           </div>
         </header>

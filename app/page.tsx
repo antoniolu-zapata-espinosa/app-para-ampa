@@ -8,5 +8,5 @@ export default async function Page() {
   const session = await auth.api.getSession({ headers: await headers() })
   if (!session?.user) redirect('/sign-in')
   const children = await obtenerHijosDeFamilia(session.user.id)
-  return <HomeClient parentName={session.user.name} children={children} />
+  return <HomeClient children={children} />
 }
