@@ -100,8 +100,8 @@ export default function HomeClient({ children }: { children: FamilyChild[] }) {
           <section className="rounded-[22px] border border-[#d9e7df] bg-[#eaf4ef] p-4 shadow-[0_5px_18px_rgba(33,61,59,0.04)]" aria-labelledby="class-selector-title">
             <div className="flex items-center justify-between gap-3">
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#4c8473]">Tu familia</p>
-                <h2 id="class-selector-title" className="mt-1 font-serif text-[19px] font-semibold text-[#245a56]">Contenido de mi clase</h2>
+                <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#4c8473]">{selectedChild ? `${selectedChild.nombre} ${selectedChild.apellidos}` : 'Alumno'}</p>
+                <h2 id="class-selector-title" className="mt-1 font-serif text-[19px] font-semibold text-[#245a56]">{selectedChild ? `Clase: ${selectedChild.claseNombre}` : 'Contenido de mi clase'}</h2>
               </div>
               <GraduationCap className="size-6 text-[#4c8473]" />
             </div>
