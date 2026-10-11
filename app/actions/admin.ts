@@ -30,7 +30,16 @@ export async function asociarPadreAClase(formData: FormData) {
   const apellidos = String(formData.get('apellidos') ?? '').trim()
   const claseId = String(formData.get('claseId') ?? '').trim()
   const parentesco = String(formData.get('parentesco') ?? 'tutor').trim()
-  if (!email || !nombre || !apellidos || !claseId) throw new Error('Completa el correo, el alumno y la clase')
+  const classCatalog: Record<string, { nombre: string; etapa: string }> = {
+    'infantil-3': { nombre: '3 años', etapa: 'Infantil' },
+    'infantil-4': { nombre: '4 años', etapa: 'Infantil' },
+    'infantil-5': { nombre: '5 años', etapa: 'Infantil' },
+    ...Object.fromEntries(Array.from({ length: 6 }, (_, index) => [`primaria-${index + 1}`, { nombre: `${index + 1}º de Primaria`, etapa: 'Primaria' }])),
+  }
+  const selectedClass = classCatalog[claseId]
+  if (!email || !nombre || !apellidos || !selectedClass) throw new Error('Completa el correo, el alumno y la clase')
+
+  await db.insert(clases).values({ id: claseId, nombre: selectedClass.nombre, etapa: selectedClass.etapa, cursoEscolar: 'Todos los cursos', activa: true }).onConflictDoNothing()
 
   const users = await db.execute<{ id: string }>(sql`SELECT "id" FROM "user" WHERE lower("email") = ${email} LIMIT 1`)
   const user = users.rows[0]
