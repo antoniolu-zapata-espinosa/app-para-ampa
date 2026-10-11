@@ -2,15 +2,22 @@ import { auth, ADMIN_EMAIL } from '@/lib/auth'
 import { AdminForms } from '@/components/admin-forms'
 import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
-import { db } from '@/lib/db'
-import { clases } from '@/lib/db/schema'
+const classOptions = [
+  { id: 'infantil-3', nombre: '3 años', etapa: 'Infantil', cursoEscolar: 'Todos los cursos' },
+  { id: 'infantil-4', nombre: '4 años', etapa: 'Infantil', cursoEscolar: 'Todos los cursos' },
+  { id: 'infantil-5', nombre: '5 años', etapa: 'Infantil', cursoEscolar: 'Todos los cursos' },
+  ...Array.from({ length: 6 }, (_, index) => ({
+    id: `primaria-${index + 1}`,
+    nombre: `${index + 1}º de Primaria`,
+    etapa: 'Primaria',
+    cursoEscolar: 'Todos los cursos',
+  })),
+]
 
 export default async function AdminPage() {
   const session = await auth.api.getSession({ headers: await headers() })
   if (!session?.user) redirect('/sign-in?redirect=/admin')
   if (session.user.email.toLowerCase() !== ADMIN_EMAIL) redirect('/')
-  const classOptions = await db.select({ id: clases.id, nombre: clases.nombre, etapa: clases.etapa, cursoEscolar: clases.cursoEscolar }).from(clases)
-
   return (
     <main className="min-h-screen bg-[#f7f7f4] px-6 py-10 text-[#263238]">
       <div className="mx-auto max-w-5xl">

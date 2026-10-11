@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { asociarPadreAClase, crearAgenda, crearClase, crearMenu, crearNoticia } from '@/app/actions/admin'
+import { asociarPadreAClase, crearAgenda, crearMenu, crearNoticia } from '@/app/actions/admin'
 
 type ClassOption = { id: string; nombre: string; etapa: string; cursoEscolar: string }
 
@@ -21,7 +21,7 @@ export function AdminForms({ classes }: { classes: ClassOption[] }) {
   return <section id="asociaciones" aria-labelledby="asociaciones-title" className="mt-8 scroll-mt-6 grid gap-4 lg:grid-cols-2">
     <div className="lg:col-span-2">
       <h2 id="asociaciones-title" className="font-serif text-2xl font-semibold text-[#245a56]">Gestión de asociaciones</h2>
-      <p className="mt-2 text-sm text-[#6d8981]">Crea primero una clase y después utiliza su ID para asociar familias y contenidos.</p>
+      <p className="mt-2 text-sm text-[#6d8981]">Selecciona el curso estable del colegio y vincula cada familia con su hijo. No es necesario crear las clases cada año.</p>
     </div>
     <FormCard title="Asociar padre o madre a una clase" action={asociarPadreAClase}>
       <input className={inputClass} name="email" type="email" placeholder="Correo de la cuenta del padre o madre" required aria-label="Correo del padre o madre" />
@@ -29,16 +29,11 @@ export function AdminForms({ classes }: { classes: ClassOption[] }) {
       <input className={inputClass} name="apellidos" placeholder="Apellidos del alumno" required aria-label="Apellidos del alumno" />
       <select className={inputClass} name="claseId" required aria-label="Clase">
         <option value="">Selecciona una clase</option>
-        {classes.map((item) => <option key={item.id} value={item.id}>{item.nombre} · {item.etapa} · {item.cursoEscolar}</option>)}
+        {classes.map((item) => <option key={item.id} value={item.id} data-name={item.nombre}>{item.nombre} · {item.etapa}</option>)}
       </select>
       <select className={inputClass} name="parentesco" defaultValue="tutor" aria-label="Parentesco">
         <option value="tutor">Tutor/a</option><option value="padre">Padre</option><option value="madre">Madre</option>
       </select>
-    </FormCard>
-    <FormCard title="Añadir clase" action={crearClase}>
-      <input className={inputClass} name="nombre" placeholder="Ej. 3º Primaria A" required aria-label="Nombre de la clase" />
-      <input className={inputClass} name="etapa" placeholder="Ej. Primaria" required aria-label="Etapa" />
-      <input className={inputClass} name="cursoEscolar" placeholder="Ej. 2026-2027" required aria-label="Curso escolar" />
     </FormCard>
     <FormCard title="Añadir agenda" action={crearAgenda}>
       <input className={inputClass} name="titulo" placeholder="Título del evento" required aria-label="Título" />
