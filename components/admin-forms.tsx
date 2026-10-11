@@ -7,10 +7,23 @@ type ClassOption = { id: string; nombre: string; etapa: string; cursoEscolar: st
 
 function FormCard({ title, children, action }: { title: string; children: React.ReactNode; action: (data: FormData) => Promise<void> }) {
   const [message, setMessage] = useState('')
-  return <form action={async (data) => { try { await action(data); setMessage('Guardado correctamente'); (document.activeElement as HTMLElement)?.blur() } catch (error) { setMessage(error instanceof Error ? error.message : 'No se pudo guardar') } }} className="rounded-3xl border border-black/[0.05] bg-white p-5 shadow-[0_8px_25px_rgba(33,61,59,0.06)]">
+  const [isPending, setIsPending] = useState(false)
+  async function handleSubmit(data: FormData) {
+    setIsPending(true)
+    setMessage('')
+    try {
+      await action(data)
+      setMessage('Guardado correctamente')
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : 'No se pudo guardar')
+    } finally {
+      setIsPending(false)
+    }
+  }
+  return <form action={handleSubmit} className="rounded-3xl border border-black/[0.05] bg-white p-5 shadow-[0_8px_25px_rgba(33,61,59,0.06)]">
     <h2 className="font-serif text-xl font-semibold text-[#245a56]">{title}</h2>
     <div className="mt-4 flex flex-col gap-3">{children}</div>
-    <button type="submit" className="mt-5 rounded-full bg-[#174c4e] px-4 py-2 text-xs font-bold text-white">Guardar dato</button>
+    <button type="submit" disabled={isPending} className="mt-5 rounded-full bg-[#174c4e] px-4 py-2 text-xs font-bold text-white disabled:cursor-wait disabled:opacity-60">{isPending ? 'Guardando…' : 'Guardar dato'}</button>
     {message && <p className="mt-3 text-xs font-semibold text-[#23645f]" role="status">{message}</p>}
   </form>
 }
