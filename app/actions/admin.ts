@@ -5,7 +5,6 @@ import { db } from '@/lib/db'
 import { agenda, clases, hijos, hijosUsuarios, menuEscolar, noticias } from '@/lib/db/schema'
 import { sql } from 'drizzle-orm'
 import { headers } from 'next/headers'
-import { revalidatePath } from 'next/cache'
 import { randomUUID } from 'crypto'
 
 async function requireAdmin() {
@@ -20,7 +19,6 @@ export async function crearClase(formData: FormData) {
   const cursoEscolar = String(formData.get('cursoEscolar') ?? '').trim()
   if (!nombre || !etapa || !cursoEscolar) throw new Error('Completa todos los campos de la clase')
   await db.insert(clases).values({ id: randomUUID(), nombre, etapa, cursoEscolar, activa: true })
-  revalidatePath('/admin')
 }
 
 export async function asociarPadreAClase(formData: FormData) {
@@ -50,7 +48,6 @@ export async function asociarPadreAClase(formData: FormData) {
   if (!existingChild[0]) await db.insert(hijos).values({ id: hijoId, nombre, apellidos })
 
   await db.insert(hijosUsuarios).values({ id: randomUUID(), userId: user.id, hijoId, claseId, parentesco }).onConflictDoNothing()
-  revalidatePath('/admin')
 }
 
 export async function crearAgenda(formData: FormData) {
@@ -60,7 +57,6 @@ export async function crearAgenda(formData: FormData) {
   const claseId = String(formData.get('claseId') ?? '').trim() || null
   if (!titulo || !fechaInicio) throw new Error('Completa el título y la fecha')
   await db.insert(agenda).values({ id: randomUUID(), titulo, claseId, fechaInicio: new Date(fechaInicio) })
-  revalidatePath('/admin')
 }
 
 export async function crearNoticia(formData: FormData) {
@@ -70,7 +66,6 @@ export async function crearNoticia(formData: FormData) {
   const claseId = String(formData.get('claseId') ?? '').trim() || null
   if (!titulo || !contenido) throw new Error('Completa el título y el contenido')
   await db.insert(noticias).values({ id: randomUUID(), titulo, contenido, claseId, publicada: true })
-  revalidatePath('/admin')
 }
 
 export async function crearMenu(formData: FormData) {
@@ -80,5 +75,4 @@ export async function crearMenu(formData: FormData) {
   const claseId = String(formData.get('claseId') ?? '').trim() || null
   if (!fecha || !platoPrincipal) throw new Error('Completa la fecha y el plato principal')
   await db.insert(menuEscolar).values({ id: randomUUID(), fecha, platoPrincipal, claseId })
-  revalidatePath('/admin')
 }
