@@ -16,7 +16,11 @@ function FormCard({ title, children, action }: { title: string; children: React.
 const inputClass = 'rounded-2xl border border-[#d8e5df] bg-[#fbfcfa] px-3 py-2 text-sm outline-none focus:border-[#4c8473]'
 
 export function AdminForms() {
-  return <section className="mt-8 grid gap-4 lg:grid-cols-2">
+  return <section id="asociaciones" aria-labelledby="asociaciones-title" className="mt-8 scroll-mt-6 grid gap-4 lg:grid-cols-2">
+    <div className="lg:col-span-2">
+      <h2 id="asociaciones-title" className="font-serif text-2xl font-semibold text-[#245a56]">Gestión de asociaciones</h2>
+      <p className="mt-2 text-sm text-[#6d8981]">Crea primero una clase y después utiliza su ID para asociar familias y contenidos.</p>
+    </div>
     <FormCard title="Añadir clase" action={crearClase}>
       <input className={inputClass} name="nombre" placeholder="Ej. 3º Primaria A" required aria-label="Nombre de la clase" />
       <input className={inputClass} name="etapa" placeholder="Ej. Primaria" required aria-label="Etapa" />
