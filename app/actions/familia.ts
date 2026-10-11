@@ -2,7 +2,24 @@
 
 import { and, asc, desc, eq, isNull, or } from 'drizzle-orm'
 import { db } from '@/lib/db'
-import { agenda, clases, hijosUsuarios, menuEscolar, noticias } from '@/lib/db/schema'
+import { agenda, clases, hijos, hijosUsuarios, menuEscolar, noticias } from '@/lib/db/schema'
+
+export async function obtenerHijosDeFamilia(userId: string) {
+  return db
+    .select({
+      id: hijos.id,
+      nombre: hijos.nombre,
+      apellidos: hijos.apellidos,
+      claseId: hijosUsuarios.claseId,
+      claseNombre: clases.nombre,
+      etapa: clases.etapa,
+    })
+    .from(hijosUsuarios)
+    .innerJoin(hijos, eq(hijosUsuarios.hijoId, hijos.id))
+    .innerJoin(clases, eq(hijosUsuarios.claseId, clases.id))
+    .where(eq(hijosUsuarios.userId, userId))
+    .orderBy(asc(hijos.nombre), asc(hijos.apellidos))
+}
 
 export async function obtenerClases() {
   return db.select().from(clases).where(eq(clases.activa, true)).orderBy(asc(clases.nombre))
