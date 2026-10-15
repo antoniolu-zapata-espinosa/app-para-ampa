@@ -50,8 +50,8 @@ export default function SignUpPage() {
         return
       }
 
-      setSuccess('Cuenta creada. Entrando al panel…')
-      router.push('/admin')
+      setSuccess('Cuenta creada. Entrando a la app…')
+      router.push('/')
       router.refresh()
     } catch {
       setError('No se ha podido conectar con la base de datos. Vuelve a intentarlo.')

@@ -81,7 +81,7 @@ export default function HomeClient({ children }: { children: FamilyChild[] }) {
               </div>
             </div>
             <div className="flex items-center gap-1">
-              <Link href="/sign-up" className="rounded-full bg-[#f3c78c] px-3 py-2 text-[10px] font-bold text-[#174c4e] transition hover:bg-[#f8d9aa]">
+              <Link href="/sign-in" className="rounded-full bg-[#f3c78c] px-3 py-2 text-[10px] font-bold text-[#174c4e] transition hover:bg-[#f8d9aa]">
                 Acceso AMPA
               </Link>
               <button aria-label="Ver notificaciones" onClick={() => showNotice('No tienes notificaciones nuevas')} className="relative rounded-full p-2 transition hover:bg-white/10">
